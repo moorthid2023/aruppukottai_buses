@@ -1,0 +1,42 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+header {
+  text-align: center;
+  padding: 10px;
+}
+table {
+  text-align: center;
+  font-size: large;
+  border: 1px solid black;
+  padding: 5px;
+  margin: auto;
+}
+table thead {
+  background-color: gray;
+  color: yellow;
+}
+.route {
+  font-size: medium;
+  padding: 10px 15%;
+  text-align: justify;
+}
+table tbody tr:nth-child(odd) {
+  background-color: lightblue;
+}
+@media only screen and (max-width: 600px) {
+  .heading {
+    font-size: medium;
+  }
+  table {
+    text-align: center;
+    font-size: medium;
+  }
+}
