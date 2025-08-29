@@ -254,5 +254,213 @@
     "type": "govt",
     "operator": "",
     "route": "பந்தல்குடி - எட்டையபுரம்"
+  },
+  {
+    "destination": "புதூர்",
+    "arrival": "10:45",
+    "period": "AM",
+    "type": "govt",
+    "operator": "",
+    "route": "பந்தல்குடி - எட்டையபுரம்"
+  },
+  {
+    "destination": "புதூர்,தூத்துக்குடி",
+    "arrival": "10:53",
+    "period": "AM",
+    "type": "private",
+    "operator": "ராஜவேல்",
+    "route": "பந்தல்குடி - எட்டையபுரம்"
+  },
+  {
+    "destination": "விளாத்திகுளம்",
+    "arrival": "11:05",
+    "period": "AM",
+    "type": "govt",
+    "operator": "",
+    "route": "பந்தல்குடி - எட்டையபுரம்"
+  },
+  {
+    "destination": "விளாத்திகுளம்",
+    "arrival": "11:20",
+    "period": "AM",
+    "type": "govt",
+    "operator": "",
+    "route": "பந்தல்குடி - எட்டையபுரம்"
+  },
+  {
+    "destination": "கோவில்பட்டி",
+    "arrival": "11:20",
+    "period": "AM",
+    "type": "private",
+    "operator": "ஜெயவிலாஸ்",
+    "route": "பந்தல்குடி - எட்டையபுரம்"
+  },
+  {
+    "destination": "புதூர்",
+    "arrival": "11:25",
+    "period": "AM",
+    "type": "govt",
+    "operator": "",
+    "route": "பந்தல்குடி - எட்டையபுரம்"
+  },
+  {
+    "destination": "நாகலாபுரம்",
+    "arrival": "11:45",
+    "period": "AM",
+    "type": "private",
+    "operator": "ஜெயவிலாஸ்",
+    "route": "பந்தல்குடி - எட்டையபுரம்"
+  },
+  {
+    "destination": "விளாத்திகுளம்",
+    "arrival": "12:00",
+    "period": "PM",
+    "type": "govt",
+    "operator": "",
+    "route": "பந்தல்குடி - எட்டையபுரம்"
+  },
+  {
+    "destination": "எட்டையபுரம்",
+    "arrival": "12:05",
+    "period": "PM",
+    "type": "private",
+    "operator": "ஜெயவிலாஸ்",
+    "route": "பந்தல்குடி - எட்டையபுரம்"
+  },
+  {
+    "destination": "பந்தல்குடி,இளையான்குடி",
+    "arrival": "12:16",
+    "period": "PM",
+    "type": "private",
+    "operator": "மீனாம்பிகை",
+    "route": "பந்தல்குடி - எட்டையபுரம்"
+  },
+  {
+    "destination": "விளாத்திகுளம்",
+    "arrival": "12:20",
+    "period": "PM",
+    "type": "govt",
+    "operator": "",
+    "route": "பந்தல்குடி - எட்டையபுரம்"
+  },
+  {
+    "destination": "விளாத்திகுளம்",
+    "arrival": "12:35",
+    "period": "PM",
+    "type": "govt",
+    "operator": "",
+    "route": "பந்தல்குடி - எட்டையபுரம்"
+  },
+  {
+    "destination": "நாகலாபுரம்",
+    "arrival": "12:37",
+    "period": "PM",
+    "type": "private",
+    "operator": "பிரதீப்",
+    "route": "பந்தல்குடி - எட்டையபுரம்"
+  },
+  {
+    "destination": "நாகலாபுரம்",
+    "arrival": "12:37",
+    "period": "PM",
+    "type": "private",
+    "operator": "பிரதீப்",
+    "route": "பந்தல்குடி - எட்டையபுரம்"
+  },
+  {
+    "destination": "நாகலாபுரம்",
+    "arrival": "12:50",
+    "period": "PM",
+    "type": "govt",
+    "operator": "",
+    "route": "பந்தல்குடி - எட்டையபுரம்"
+  },
+  {
+    "destination": "விளாத்திகுளம்",
+    "arrival": "12:57",
+    "period": "PM",
+    "type": "private",
+    "operator": "ராஜவேல்",
+    "route": "பந்தல்குடி - எட்டையபுரம்"
+  },
+  {
+    "destination": "மாதலாபுரம்",
+    "arrival": "1:00",
+    "period": "AM",
+    "type": "private",
+    "operator": "ஸ்ரீராம்",
+    "route": "பந்தல்குடி - எட்டையபுரம்"
+  },
+  {
+    "destination": "கோவில்பட்டி",
+    "arrival": "1:00",
+    "period": "AM",
+    "type": "govt",
+    "operator": "",
+    "route": "பந்தல்குடி - எட்டையபுரம்"
+  },
+  {
+    "destination": "திருநெல்வேலி",
+    "arrival": "1:15",
+    "period": "AM",
+    "type": "govt",
+    "operator": "",
+    "route": "பந்தல்குடி - எட்டையபுரம்"
+  },
+  {
+    "destination": "விளாத்திகுளம்",
+    "arrival": "1:20",
+    "period": "AM",
+    "type": "govt",
+    "operator": "",
+    "route": "பந்தல்குடி - எட்டையபுரம்"
+  },
+  {
+    "destination": "பந்தல்குடி,ராஜபாளையம்",
+    "arrival": "1:20",
+    "period": "AM",
+    "type": "private",
+    "operator": "ஜெயராம்",
+    "route": "பந்தல்குடி - எட்டையபுரம்"
+  },
+  {
+    "destination": "விளாத்திகுளம்",
+    "arrival": "1:40",
+    "period": "AM",
+    "type": "govt",
+    "operator": "",
+    "route": "பந்தல்குடி - எட்டையபுரம்"
+  },
+  {
+    "destination": "புதூர்",
+    "arrival": "1:45",
+    "period": "AM",
+    "type": "govt",
+    "operator": "",
+    "route": "பந்தல்குடி - எட்டையபுரம்"
+  },
+  {
+    "destination": "பெரியதும்மகுண்டு",
+    "arrival": "2:00",
+    "period": "AM",
+    "type": "govt",
+    "operator": "",
+    "route": "பந்தல்குடி - எட்டையபுரம்"
+  },
+  {
+    "destination": "விளாத்திகுளம்",
+    "arrival": "2:05",
+    "period": "AM",
+    "type": "govt",
+    "operator": "",
+    "route": "பந்தல்குடி - எட்டையபுரம்"
+  },
+  {
+    "destination": "கோவில்பட்டி",
+    "arrival": "2:10",
+    "period": "AM",
+    "type": "govt",
+    "operator": "",
+    "route": "பந்தல்குடி - எட்டையபுரம்"
   }
 ]

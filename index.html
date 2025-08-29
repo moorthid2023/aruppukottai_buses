@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ta">
 <head>
@@ -38,7 +37,6 @@
         text-align: center;
         font-size: larger;
         background-color: #005fa3;
-        
     }
     .tool a{
         text-decoration: none;
@@ -50,7 +48,7 @@
   <header>
     <h1>🚌 பஸ் நேர அட்டவணை</h1>
   </header>
-<h3 class="tool"><a href="tool.html">Tool</a></h3>
+<h3 class="tool"><a href="tool.html" target="_blank">Tool</a></h3>
   <nav>
     <a href="#" onclick="showPage('home')">முகப்பு</a>
     <a href="#" onclick="showPage('bus')">பஸ் நேரம்</a>
@@ -182,10 +180,11 @@
       renderBusTable(filtered);
     }
 
+    // 🔥 Updated to highlight ALL rows containing the clicked text
     function highlightRows(dest){
       document.querySelectorAll("#busTable tr").forEach(r=>r.classList.remove("highlighted"));
       document.querySelectorAll("#busTable tr").forEach(r=>{
-        if(r.children[0] && r.children[0].textContent === dest){
+        if(r.children[0] && r.children[0].textContent.includes(dest)){
           r.classList.add("highlighted");
         }
       });
