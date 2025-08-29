@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8">
+  <title>Bus Timing JSON Tool</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background: #f9f9f9; }
+    h1 { color: #333; }
+    .form-section, .data-section {
+      background: #fff;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    label { display: block; margin-top: 10px; }
+    input, select, button {
+      margin-top: 5px;
+      padding: 8px;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button { background: #007bff; color: #fff; cursor: pointer; width: auto; margin-top: 10px; }
+    button:hover { background: #0056b3; }
+    pre {
+      background: #222; color: #0f0;
+      padding: 15px; border-radius: 5px;
+      max-height: 300px; overflow-y: auto;
+    }
+
+    /* Scrollable bus list */
+    .bus-list {
+      margin-top: 10px;
+      max-height: 300px;      /* Visible height */
+      overflow-y: auto;       /* Scroll when content exceeds height */
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 5px;
+      background: #fafafa;
+    }
+    .bus-item {
+      padding: 8px;
+      border-bottom: 1px solid #ddd;
+      background: #fff;
+      border-radius: 4px;
+      margin-bottom: 5px;
+    }
+    .bus-item span { font-weight: bold; }
+    .actions { margin-top: 5px; }
+    .actions button { margin-right: 5px; }
+  </style>
+</head>
+<body>
+
+  <h1>🚌 Bus Timing JSON Tool</h1>
+
+  <!-- Upload JSON -->
+  <div class="form-section">
+    <label for="fileInput">Upload existing bustiming.json:</label>
+    <input type="file" id="fileInput" accept=".json">
+  </div>
+
+  <!-- Add/Edit Bus -->
+  <div class="form-section">
+    <h2 id="formTitle">Add Bus</h2>
+
+    <label>Destination: 
+      <input type="text" id="destinationInput" placeholder="புதிய இலக்கு எழுதவும்">
+      <select id="destinationSelect" onchange="setDestinationFromSelect()">
+        <option value="">--இருக்கும் இலக்கை தேர்வு செய்யவும்--</option>
+        <option>விளாத்திகுளம்</option>
+        <option>புதூர்</option>
+        <option>கோவில்பட்டி</option>
+        <option>தூத்துக்குடி</option>
+        <option>மாதலாபுரம்</option>
+        <option>பெரியதும்மகுண்டு</option>
+        <option>நாகலாபுரம்</option>
+        <option>பட்டிதேவன்பட்டி</option>
+      </select>
+    </label>
+
+    <label>Arrival Time: 
+      <input type="time" id="arrival" step="60">
+    </label>
+
+    <label>Type:
+      <select id="type">
+        <option value="govt">Govt</option>
+        <option value="private">Private</option>
+      </select>
+    </label>
+
+    <label>Operator (if private): <input type="text" id="operator"></label>
+    <label>Route: <input type="text" id="route"></label>
+    <button onclick="saveBus()" id="saveBtn">➕ Add Bus</button>
+    <button onclick="cancelEdit()" id="cancelBtn" style="display:none; background:#6c757d;">✖ Cancel</button>
+  </div>
+
+  <!-- Display Buses -->
+  <div class="data-section">
+    <h2>Bus List</h2>
+    <div class="bus-list" id="busList"></div>
+  </div>
+
+  <!-- JSON Output -->
+  <div class="data-section">
+    <h2>Generated JSON</h2>
+    <pre id="jsonOutput">[ ]</pre>
+    <button onclick="copyJSON()">📋 Copy JSON</button>
+    <button onclick="downloadJSON()">⬇️ Download JSON</button>
+  </div>
+
+  <script>
+    let buses = [];
+    let editIndex = null; 
+
+    document.getElementById("fileInput").addEventListener("change", function(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          buses = JSON.parse(e.target.result);
+          renderBusList();
+          updateJSON();
+        } catch (err) {
+          alert("Invalid JSON file!");
+          console.error(err);
+        }
+      };
+      reader.readAsText(file, "UTF-8");
+    });
+
+    function setDestinationFromSelect() {
+      document.getElementById('destinationInput').value = 
+        document.getElementById('destinationSelect').value;
+    }
+
+    function formatTimeTo12Hr(time24) {
+      if (!time24) return {time:"", period:""};
+      let [h, m] = time24.split(":");
+      h = parseInt(h, 10);
+      const period = h >= 12 ? "PM" : "AM";
+      h = h % 12 || 12; 
+      return {time:`${h}:${m}`, period};
+    }
+
+    function formatTimeTo24Hr(time12, period) {
+      if (!time12) return "";
+      let [h, m] = time12.split(":");
+      h = parseInt(h, 10);
+      if (period === "PM" && h < 12) h += 12;
+      if (period === "AM" && h === 12) h = 0;
+      return `${String(h).padStart(2,"0")}:${m}`;
+    }
+
+    function saveBus() {
+      const destination = document.getElementById('destinationInput').value.trim();
+      const arrivalRaw = document.getElementById('arrival').value;
+      const {time: arrivalTime, period} = formatTimeTo12Hr(arrivalRaw);
+      const type = document.getElementById('type').value;
+      const operator = type === "private" ? document.getElementById('operator').value.trim() : "";
+      const route = document.getElementById('route').value.trim();
+
+      if (!destination || !arrivalTime || !route) {
+        alert("Please fill Destination, Arrival and Route!");
+        return;
+      }
+
+      const busData = { destination, arrival: arrivalTime, period, type, operator, route };
+
+      if (editIndex === null) {
+        buses.push(busData);
+      } else {
+        buses[editIndex] = busData;
+        editIndex = null;
+        document.getElementById('formTitle').textContent = "Add Bus";
+        document.getElementById('saveBtn').textContent = "➕ Add Bus";
+        document.getElementById('cancelBtn').style.display = "none";
+      }
+
+      clearForm();
+      renderBusList();
+      updateJSON();
+    }
+
+    function editBus(index) {
+      const bus = buses[index];
+      document.getElementById('destinationInput').value = bus.destination;
+      document.getElementById('arrival').value = formatTimeTo24Hr(bus.arrival, bus.period);
+      document.getElementById('type').value = bus.type;
+      document.getElementById('operator').value = bus.operator;
+      document.getElementById('route').value = bus.route;
+
+      editIndex = index;
+      document.getElementById('formTitle').textContent = "Edit Bus";
+      document.getElementById('saveBtn').textContent = "💾 Save Changes";
+      document.getElementById('cancelBtn').style.display = "inline-block";
+    }
+
+    function cancelEdit() {
+      editIndex = null;
+      clearForm();
+      document.getElementById('formTitle').textContent = "Add Bus";
+      document.getElementById('saveBtn').textContent = "➕ Add Bus";
+      document.getElementById('cancelBtn').style.display = "none";
+    }
+
+    function clearForm() {
+      document.getElementById('destinationInput').value = "";
+      document.getElementById('destinationSelect').value = "";
+      document.getElementById('arrival').value = "";
+      document.getElementById('type').value = "govt";
+      document.getElementById('operator').value = "";
+      document.getElementById('route').value = "";
+    }
+
+    function renderBusList() {
+      const list = document.getElementById('busList');
+      list.innerHTML = "";
+      buses.forEach((bus, index) => {
+        const div = document.createElement('div');
+        div.className = "bus-item";
+        div.innerHTML = `<span>${bus.destination}</span> (${bus.arrival} ${bus.period}) - ${bus.type === "private" ? bus.operator : "Govt"}
+          <br><small>${bus.route}</small>
+          <div class="actions">
+            <button onclick="editBus(${index})">✏️ Edit</button>
+            <button onclick="deleteBus(${index})" style="background:#dc3545;">🗑️ Delete</button>
+          </div>`;
+        list.appendChild(div);
+      });
+    }
+
+    function deleteBus(index) {
+      buses.splice(index, 1);
+      renderBusList();
+      updateJSON();
+    }
+
+    function updateJSON() {
+      document.getElementById('jsonOutput').textContent = JSON.stringify(buses, null, 2);
+    }
+
+    function copyJSON() {
+      navigator.clipboard.writeText(JSON.stringify(buses, null, 2));
+      alert("Copied JSON to clipboard!");
+    }
+
+    function downloadJSON() {
+      const blob = new Blob([JSON.stringify(buses, null, 2)], {type: "application/json"});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "bustiming.json";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  </script>
+
+</body>
+</html>

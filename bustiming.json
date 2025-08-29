@@ -1,0 +1,258 @@
+[
+  {
+    "destination": "விளாத்திகுளம்",
+    "arrival": "4:20",
+    "period": "AM",
+    "type": "govt",
+    "operator": "",
+    "route": "பந்தல்குடி - எட்டையபுரம்"
+  },
+  {
+    "destination": "புதூர்",
+    "arrival": "4:45",
+    "period": "AM",
+    "type": "govt",
+    "operator": "",
+    "route": ""
+  },
+  {
+    "destination": "கோவில்பட்டி",
+    "arrival": "5:00",
+    "period": "AM",
+    "type": "govt",
+    "operator": "",
+    "route": ""
+  },
+  {
+    "destination": "விளாத்திகுளம்",
+    "arrival": "5:15",
+    "period": "AM",
+    "type": "govt",
+    "operator": "",
+    "route": ""
+  },
+  {
+    "destination": "கோவில்பட்டி",
+    "arrival": "5:30",
+    "period": "AM",
+    "type": "private",
+    "operator": "ஜெயவிலாஸ்",
+    "route": ""
+  },
+  {
+    "destination": "புதூர் ,தூத்துக்குடி",
+    "arrival": "5:45",
+    "period": "AM",
+    "type": "govt",
+    "operator": "",
+    "route": ""
+  },
+  {
+    "destination": "விளாத்திகுளம்",
+    "arrival": "5:45",
+    "period": "AM",
+    "type": "private",
+    "operator": "ஸ்ரீநிவாசா",
+    "route": ""
+  },
+  {
+    "destination": "பந்தல்குடி, இராஜபாளையம்",
+    "arrival": "5:55",
+    "period": "AM",
+    "type": "private",
+    "operator": "ஜெயராம்",
+    "route": ""
+  },
+  {
+    "destination": "கோவில்பட்டி",
+    "arrival": "6:20",
+    "period": "AM",
+    "type": "govt",
+    "operator": "",
+    "route": ""
+  },
+  {
+    "destination": "புதூர்",
+    "arrival": "6:25",
+    "period": "AM",
+    "type": "govt",
+    "operator": "",
+    "route": ""
+  },
+  {
+    "destination": "மாதலாபுரம்",
+    "arrival": "6:42",
+    "period": "AM",
+    "type": "private",
+    "operator": "ஸ்ரீராம்",
+    "route": ""
+  },
+  {
+    "destination": "விளாத்திகுளம்",
+    "arrival": "6:50",
+    "period": "AM",
+    "type": "govt",
+    "operator": "",
+    "route": ""
+  },
+  {
+    "destination": "பெரியதும்மகுண்டு",
+    "arrival": "7:05",
+    "period": "AM",
+    "type": "govt",
+    "operator": "",
+    "route": ""
+  },
+  {
+    "destination": "விளாத்திகுளம்",
+    "arrival": "7:10",
+    "period": "AM",
+    "type": "govt",
+    "operator": "",
+    "route": ""
+  },
+  {
+    "destination": "கோவில்பட்டி",
+    "arrival": "7:20",
+    "period": "AM",
+    "type": "private",
+    "operator": "S.S.K.",
+    "route": ""
+  },
+  {
+    "destination": "நாகலாபுரம்",
+    "arrival": "7:30",
+    "period": "AM",
+    "type": "govt",
+    "operator": "",
+    "route": ""
+  },
+  {
+    "destination": "திருநெல்வேலி",
+    "arrival": "7:30",
+    "period": "AM",
+    "type": "govt",
+    "operator": "",
+    "route": ""
+  },
+  {
+    "destination": "கொப்புசித்தம்பட்டி",
+    "arrival": "7:45",
+    "period": "AM",
+    "type": "govt",
+    "operator": "",
+    "route": ""
+  },
+  {
+    "destination": "புதூர், தூத்துக்குடி",
+    "arrival": "8:00",
+    "period": "AM",
+    "type": "private",
+    "operator": "ஸ்ரீநிவாசா",
+    "route": ""
+  },
+  {
+    "destination": "விளாத்திகுளம்",
+    "arrival": "8:20",
+    "period": "AM",
+    "type": "govt",
+    "operator": "",
+    "route": ""
+  },
+  {
+    "destination": "கோவில்பட்டி",
+    "arrival": "8:25",
+    "period": "AM",
+    "type": "private",
+    "operator": "ஜெயவிலாஸ்",
+    "route": ""
+  },
+  {
+    "destination": "பந்தல்குடி",
+    "arrival": "8:43",
+    "period": "AM",
+    "type": "private",
+    "operator": "பிரதீப்",
+    "route": ""
+  },
+  {
+    "destination": "விளாத்திகுளம்",
+    "arrival": "8:50",
+    "period": "AM",
+    "type": "govt",
+    "operator": "",
+    "route": ""
+  },
+  {
+    "destination": "பெரியதும்மகுண்டு",
+    "arrival": "9:02",
+    "period": "AM",
+    "type": "govt",
+    "operator": "",
+    "route": ""
+  },
+  {
+    "destination": "புதூர். தூத்துக்குடி",
+    "arrival": "9:05",
+    "period": "AM",
+    "type": "private",
+    "operator": "ஜெயவிலாஸ்",
+    "route": ""
+  },
+  {
+    "destination": "பட்டிதேவன்பட்டி",
+    "arrival": "9:15",
+    "period": "AM",
+    "type": "govt",
+    "operator": "",
+    "route": ""
+  },
+  {
+    "destination": "கோவில்பட்டி",
+    "arrival": "9:20",
+    "period": "AM",
+    "type": "private",
+    "operator": "ஜெயவிலாஸ்",
+    "route": ""
+  },
+  {
+    "destination": "விளாத்திகுளம்",
+    "arrival": "9:21",
+    "period": "AM",
+    "type": "govt",
+    "operator": "",
+    "route": ""
+  },
+  {
+    "destination": "விளாத்திகுளம்",
+    "arrival": "9:30",
+    "period": "AM",
+    "type": "private",
+    "operator": "ஸ்ரீராம்",
+    "route": ""
+  },
+  {
+    "destination": "நாகலாபுரம்",
+    "arrival": "10:15",
+    "period": "AM",
+    "type": "govt",
+    "operator": "",
+    "route": ""
+  },
+  {
+    "destination": "கோவில்பட்டி",
+    "arrival": "10:20",
+    "period": "AM",
+    "type": "govt",
+    "operator": "",
+    "route": ""
+  },
+  {
+    "destination": "விளாத்திகுளம்",
+    "arrival": "10:40",
+    "period": "AM",
+    "type": "govt",
+    "operator": "",
+    "route": "பந்தல்குடி - எட்டையபுரம்"
+  }
+]

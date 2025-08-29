@@ -1,0 +1,205 @@
+
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>பஸ் நேர அட்டவணை</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+    body { background: #f9f9f9; color: #333; line-height: 1.6; padding: 10px; }
+    header { background: #0077cc; color: white; padding: 15px; text-align: center; border-radius: 10px; margin-bottom: 15px; }
+    nav { margin: 10px 0; text-align: center; }
+    nav a { display: inline-block; margin: 5px; padding: 8px 15px; background: #0077cc; color: white; border-radius: 6px; text-decoration: none; }
+    nav a:hover { background: #005fa3; }
+
+    .page { display: none; }
+    .page.active { display: block; }
+
+    .search-box { margin: 20px auto; max-width: 400px; text-align: center; }
+    .search-box input, .search-box select { width: 100%; padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 6px; }
+
+    .table-container { max-height: 400px; overflow-y: auto; border: 1px solid #ddd; border-radius: 6px; }
+    table { width: 100%; border-collapse: collapse; }
+    thead th { position: sticky; top: 0; background: #0077cc; color: white; z-index: 2; }
+    th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
+    tbody tr:nth-child(even) { background: #f2f2f2; }
+
+    .route { display: none; background: #eef; padding: 8px; border-radius: 6px; margin-top: 5px; font-size: 0.9em; }
+    .expand-btn { cursor: pointer; color: #0077cc; text-decoration: underline; font-size: 0.9em; }
+
+    .highlighted { background: #ffeaa7 !important; font-weight: bold; }
+
+    @media (max-width: 600px) {
+      table, th, td { font-size: 14px; padding: 8px; }
+      nav a { padding: 6px 10px; font-size: 14px; }
+    }
+    .tool{
+        text-align: center;
+        font-size: larger;
+        background-color: #005fa3;
+        
+    }
+    .tool a{
+        text-decoration: none;
+        color: whitesmoke;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🚌 பஸ் நேர அட்டவணை</h1>
+  </header>
+<h3 class="tool"><a href="tool.html">Tool</a></h3>
+  <nav>
+    <a href="#" onclick="showPage('home')">முகப்பு</a>
+    <a href="#" onclick="showPage('bus')">பஸ் நேரம்</a>
+  </nav>
+
+  <!-- Home Page -->
+  <div id="home" class="page active">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="இலக்கைத் தேடுங்கள்..." />
+      <select id="filterSelect">
+        <option value="all">அனைத்து பஸ்கள்</option>
+        <option value="govt">அரசு பஸ்</option>
+        <option value="private">தனியார் பஸ்</option>
+      </select>
+    </div> 
+    <h3 style="text-align:center; margin-bottom:10px;">மூல நிலையம்: அருப்புக்கோட்டை</h3>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>இலக்கு</th>
+            <th>வருகை</th>
+            <th>நேரம்</th>
+            <th>வகை</th>
+          </tr>
+        </thead>
+        <tbody id="homeTable"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Bus Table Page -->
+  <div id="bus" class="page">
+    <h3 style="text-align:center; margin-bottom:10px;">மூல நிலையம்: அருப்புக்கோட்டை</h3>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>இலக்கு</th>
+            <th>வருகை</th>
+            <th>நேரம்</th>
+            <th>வகை</th>
+            <th>பாதை</th>
+          </tr>
+        </thead>
+        <tbody id="busTable"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    let buses = [];
+
+    async function loadData() {
+      try {
+        const res = await fetch("bustiming.json");
+        buses = await res.json();
+        updateResults();
+      } catch(err) {
+        console.error("பஸ் தரவை ஏற்ற முடியவில்லை", err);
+      }
+    }
+
+    function showPage(pageId){
+      document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+      document.getElementById(pageId).classList.add("active");
+
+      if(pageId === "home") {
+        document.querySelectorAll("#busTable tr").forEach(r => r.classList.remove("highlighted"));
+      }
+    }
+
+    function renderHomeTable(list){
+      const tbody = document.getElementById("homeTable");
+      tbody.innerHTML = "";
+
+      // Get unique destinations
+      const seen = new Set();
+      list.forEach(bus => {
+        if(!seen.has(bus.destination)){
+          seen.add(bus.destination);
+          const tr = document.createElement("tr");
+          const typeText = bus.type==="govt"?"அரசு பஸ்":`தனியார் (${bus.operator})`;
+          tr.innerHTML = `
+            <td>${bus.destination}</td>
+            <td>${bus.arrival}</td>
+            <td>${bus.period}</td>
+            <td>${typeText}</td>
+          `;
+          tr.onclick = () => { showPage("bus"); highlightRows(bus.destination); };
+          tbody.appendChild(tr);
+        }
+      });
+    }
+
+    function renderBusTable(list){
+      const tbody = document.getElementById("busTable");
+      tbody.innerHTML = "";
+      list.forEach((bus,i)=>{
+        const typeText = bus.type==="govt"?"அரசு பஸ்":`தனியார் (${bus.operator})`;
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${bus.destination}</td>
+          <td>${bus.arrival}</td>
+          <td>${bus.period}</td>
+          <td>${typeText}</td>
+          <td>
+            <span class="expand-btn" onclick="toggleRoute(${i})">பாதை காண்க</span>
+            <div class="route" id="route-${i}">${bus.route}</div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function toggleRoute(i){
+      const el = document.getElementById(`route-${i}`);
+      el.style.display = el.style.display==="block"?"none":"block";
+    }
+
+    function updateResults(){
+      const query = searchInput.value.trim().toLowerCase();
+      const filter = filterSelect.value;
+
+      let filtered = buses.filter(b => b.destination.toLowerCase().includes(query));
+      if(filter !== "all") filtered = filtered.filter(b => b.type === filter);
+
+      renderHomeTable(filtered);
+      renderBusTable(filtered);
+    }
+
+    function highlightRows(dest){
+      document.querySelectorAll("#busTable tr").forEach(r=>r.classList.remove("highlighted"));
+      document.querySelectorAll("#busTable tr").forEach(r=>{
+        if(r.children[0] && r.children[0].textContent === dest){
+          r.classList.add("highlighted");
+        }
+      });
+      const firstMatch = document.querySelector("#busTable tr.highlighted");
+      if(firstMatch) firstMatch.scrollIntoView({behavior:"smooth", block:"center"});
+    }
+
+    const searchInput = document.getElementById("searchInput");
+    const filterSelect = document.getElementById("filterSelect");
+
+    searchInput.addEventListener("input", updateResults);
+    filterSelect.addEventListener("change", updateResults);
+
+    loadData();
+  </script>
+</body>
+</html>
